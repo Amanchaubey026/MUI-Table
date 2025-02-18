@@ -5,9 +5,7 @@
 
 ![image](https://github.com/user-attachments/assets/5667776c-8010-45ab-90a4-943b3047095d)
 
-# DataTable App
 
-![DataTable App Screenshot](path/to/screenshot.png)
 
 ## Table of Contents
 
@@ -21,7 +19,7 @@
 
 ## Introduction
 
-The DataTable App is a React application designed to display user data in a paginated table format. It includes features such as user selection, pagination, and responsive design. The app is built using Material-UI for styling and components, ensuring a modern and clean user interface.
+The MUITable App is a React application designed to display user data in a paginated table format. It includes features such as user selection, pagination, and responsive design. The app is built using Material-UI for styling and components, ensuring a modern and clean user interface.
 
 ## Features
 
