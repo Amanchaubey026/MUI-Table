@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Banner } from './components/Banner';
 import { DataTable } from './components/Table';
 import { generateMockData } from './utils/generateMockData ';
+import Footer from './components/Footer';
 
 const theme = createTheme({
   typography: {
@@ -40,6 +41,7 @@ function App() {
         }}>
           <DataTable data={data} />
         </Box>
+        <Footer/>
       </Box>
     </ThemeProvider>
   );

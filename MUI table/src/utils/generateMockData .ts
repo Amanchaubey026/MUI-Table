@@ -3,7 +3,7 @@ import { User } from "../interfaces/user";
 // mockData.ts
 // Mock Data Generator
 export const generateMockData = (): User[] => {
-    return Array.from({ length: 45 }, (_, index) => ({
+    return Array.from({ length: 100 }, (_, index) => ({
       id: `${index + 1}`,
       firstname: 'Username',
       lastname: 'lastname',

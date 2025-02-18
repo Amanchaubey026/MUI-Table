@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import {
   Table,
   TableBody,
@@ -26,8 +26,6 @@ export interface User {
   teams: string[];
   avatar: string;
 }
-
-
 
 // Styled Components
 const StyledTableContainer = styled(TableContainer)({
@@ -56,6 +54,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const StyledTableRow = styled(TableRow)({
   '&:hover': {
     backgroundColor: '#F9FAFB',
+    cursor: 'pointer',
   },
 });
 
@@ -103,7 +102,7 @@ const PaginationBox = styled(Box)({
   gap: '4px',
 });
 
-const PageButton = styled('button')<{ active?: boolean }>(({ active }) => ({
+const PageButton = styled('button')<{ active?: boolean; disabled?: boolean }>(({ active, disabled }) => ({
   minWidth: '28px',
   height: '28px',
   padding: '4px 8px',
@@ -112,24 +111,26 @@ const PageButton = styled('button')<{ active?: boolean }>(({ active }) => ({
   color: active ? 'white' : '#6B7280',
   fontSize: '14px',
   borderRadius: '4px',
-  cursor: 'pointer',
+  cursor: disabled ? 'not-allowed' : 'pointer',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  opacity: disabled ? 0.5 : 1,
   '&:hover': {
     backgroundColor: active ? '#2563EB' : '#F9FAFB',
   },
-  '&:disabled': {
-    opacity: 0.5,
-    cursor: 'not-allowed',
-  },
 }));
 
-const PageText = styled(Typography)({
+const PageText = styled(Typography)<{ disabled?: boolean }>(({ disabled }) => ({
   color: '#6B7280',
   fontSize: '14px',
   userSelect: 'none',
-});
+  cursor: disabled ? 'not-allowed' : 'pointer',
+  opacity: disabled ? 0.5 : 1,
+  '&:hover': {
+    textDecoration: 'underline',
+  },
+}));
 
 const ActionDot = styled('div')({
   width: '8px',
@@ -162,7 +163,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data }) => {
     setSelected([]);
   };
 
-  const handleClick = (id: string) => {
+  const handleClick = (event: MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: string[] = [];
 
@@ -183,6 +184,14 @@ export const DataTable: React.FC<DataTableProps> = ({ data }) => {
   };
 
   const isSelected = (id: string) => selected.indexOf(id) !== -1;
+
+  const handlePrevClick = () => {
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextClick = () => {
+    setPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
 
   return (
     <StyledTableContainer>
@@ -213,7 +222,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data }) => {
               return (
                 <StyledTableRow
                   hover
-                  onClick={() => handleClick(row.id)}
+                  onClick={(event) => handleClick(event, row.id)}
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
@@ -227,9 +236,9 @@ export const DataTable: React.FC<DataTableProps> = ({ data }) => {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                       <Avatar
                         src={row.avatar}
-                        sx={{ 
-                          width: 32, 
-                          height: 32, 
+                        sx={{
+                          width: 32,
+                          height: 32,
                           backgroundColor: '#F3F4F6',
                           border: '1px solid #E5E7EB'
                         }}
@@ -267,9 +276,9 @@ export const DataTable: React.FC<DataTableProps> = ({ data }) => {
                       {row.teams.map((team) => (
                         <TeamChip key={team}>{team}</TeamChip>
                       ))}
-                      <Typography 
-                        sx={{ 
-                          color: '#6B7280', 
+                      <Typography
+                        sx={{
+                          color: '#6B7280',
                           fontSize: '13px',
                           marginLeft: '8px'
                         }}
@@ -290,19 +299,24 @@ export const DataTable: React.FC<DataTableProps> = ({ data }) => {
         </TableBody>
       </Table>
       <PaginationContainer>
-        <PageText>Prev</PageText>
+        <PageText onClick={handlePrevClick} disabled={page === 1}>
+          Prev
+        </PageText>
         <PaginationBox>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <PageButton
               key={pageNum}
               active={page === pageNum}
               onClick={() => setPage(pageNum)}
+              disabled={pageNum === page}
             >
               {pageNum}
             </PageButton>
           ))}
         </PaginationBox>
-        <PageText>Next</PageText>
+        <PageText onClick={handleNextClick} disabled={page === totalPages}>
+          Next
+        </PageText>
       </PaginationContainer>
     </StyledTableContainer>
   );
