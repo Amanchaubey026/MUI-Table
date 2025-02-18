@@ -35,7 +35,6 @@ To get started with the MUITable App, follow these steps:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/yourusername/datatable-app.git
-   cd datatable-app
    ```
 2. **Install Dependencies**:
    ```bash
@@ -46,12 +45,12 @@ To get started with the MUITable App, follow these steps:
    npm start
    ```
 4. **Open the App**:
-   Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to see the app in action.
+   Open your browser and navigate to [http://localhost:5173](http://localhost:5173) to see the app in action.
 
 ## Usage
 
 ### MUITable Component
-The `DataTable` component is the core of the application. It displays user data in a table format with support for pagination and user selection.
+The `MUITable` component is the core of the application. It displays user data in a table format with support for pagination and user selection.
 
 #### Props:
 - `data`: An array of user objects to be displayed in the table.
@@ -79,27 +78,4 @@ The `generateMockData` function generates an array of mock user data for testing
 - **Navbar**: Provides navigation links and a dropdown menu.
 - **Banner**: Displays an announcement banner.
 - **Footer**: Placeholder for the footer component.
-
-## Contributing
-
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
-
-1. **Fork the repository.**
-2. **Create a new branch:**
-   ```bash
-   git checkout -b feature-branch
-   ```
-3. **Make your changes and commit them:**
-   ```bash
-   git commit -m 'Add new feature'
-   ```
-4. **Push to the branch:**
-   ```bash
-   git push origin feature-branch
-   ```
-5. **Submit a pull request.**
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
 
